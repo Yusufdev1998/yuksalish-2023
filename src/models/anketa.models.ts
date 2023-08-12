@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { anketa } from "../constant/mdul-name";
 
-interface IAnketa {
+export interface IAnketa {
   surname: string;
   name: string;
   middleName: string;
@@ -35,8 +35,8 @@ interface IAnketa {
 }
 
 const schema = new Schema<IAnketa>({
-  surname: String,
-  name: String,
+  surname: { type: String, required: true },
+  name: { type: String, required: true },
   middleName: String,
   phone: String,
   phone2: String,

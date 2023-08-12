@@ -7,9 +7,9 @@ interface IUser {
   name: string;
 }
 
-const schema = new Schema({
-  phone: String,
-  password: String,
+const schema = new Schema<IUser>({
+  phone: { type: String, required: true, unique: true, index: true },
+  password: { type: String, required: true },
   name: String,
 });
 

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import anketaModel from "../models/anketa.models";
+import anketaModel, { IAnketa } from "../models/anketa.models";
 
 export const getAnketa = async (req: Request, res: Response) => {
   try {
@@ -23,8 +23,14 @@ export const getAnketa = async (req: Request, res: Response) => {
       }
     });
     const data = await anketaModel.find(one, {}, two);
-
-    res.send({ data, succes: true });
+    const count = await anketaModel.count(one);
+    res.send({
+      data,
+      succes: true,
+      count,
+      limit: data.length,
+      skip: (query["skip"] as any) * 1,
+    });
   } catch (error: any) {
     console.log(error);
 
@@ -34,9 +40,14 @@ export const getAnketa = async (req: Request, res: Response) => {
 
 export const createAnteka = async (req: Request, res: Response) => {
   try {
-    const body = req.body;
+    const body: IAnketa = req.body;
 
-    const data = await anketaModel.create(body);
+    const fio = body?.name + body?.surname + body?.middleName + "";
+
+    const data = await anketaModel.create({
+      ...body,
+      fio: body.fio ? body.fio : fio,
+    });
 
     res.send({ data, succes: true });
   } catch (error: any) {

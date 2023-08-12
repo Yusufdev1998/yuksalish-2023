@@ -8,7 +8,10 @@ interface IFillial {
 }
 
 const schema = new Schema({
-  nomi: String,
+  nomi: {
+    type: String,
+    required: true,
+  },
   user_id: String,
   filial_type: Number,
 });
