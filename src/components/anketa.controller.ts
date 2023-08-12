@@ -1,0 +1,45 @@
+import { Request, Response } from "express";
+import anketaModel from "../models/anketa.models";
+
+export const getAnketa = async (req: Request, res: Response) => {
+  try {
+    let query = req.query;
+
+    let one: any = {};
+    let two: any = {};
+
+    Object.keys(query).forEach((item) => {
+      if (item === "languages") {
+        one[item] = { $element: { $regex: query[item], $options: "i" } };
+      } else if (item === "softwares") {
+        one[item] = { $element: { $regex: `${query[item]}`, $options: "i" } };
+      } else if (item.includes("sort")) {
+        let newItem = item.split("_")[1];
+        two["sort"] = { [`${newItem}`]: (query[item] as any) * 1 };
+      } else if (item === "limit" || item === "skip") {
+        two[item] = (query[item] as any) * 1;
+      } else {
+        one[item] = { $regex: query[item], $options: "i" };
+      }
+    });
+    const data = await anketaModel.find(one, {}, two);
+
+    res.send({ data, succes: true });
+  } catch (error: any) {
+    console.log(error);
+
+    res.send({ error: error.message, succes: false });
+  }
+};
+
+export const createAnteka = async (req: Request, res: Response) => {
+  try {
+    const body = req.body;
+
+    const data = await anketaModel.create(body);
+
+    res.send({ data, succes: true });
+  } catch (error: any) {
+    res.send({ error: error.message, succes: false });
+  }
+};

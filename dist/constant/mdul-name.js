@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.url = exports.text_button = exports.message = exports.anketa = exports.lavozim = exports.filial = exports.user = void 0;
+let user = "user";
+exports.user = user;
+let filial = "filial";
+exports.filial = filial;
+let lavozim = "lavozim";
+exports.lavozim = lavozim;
+let anketa = "anketa";
+exports.anketa = anketa;
+let message = "Welcome";
+exports.message = message;
+let text_button = "Anketani To'ldoring";
+exports.text_button = text_button;
+let url = "https://www.youtube.com/watch?v=vN12KY7eR8U&list=RDvN12KY7eR8U&start_radio=1";
+exports.url = url;
