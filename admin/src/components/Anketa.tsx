@@ -98,21 +98,8 @@ const Anketa: React.FC = () => {
       console.log(query);
 
       const res = await fetch(url + fillial + query);
-      console.log(res);
 
-      const { data } = await res.json();
-
-      let newData = data?.map((item: any, i: any) => {
-        return {
-          key: i + 1,
-          fio: item.fio,
-          birthday: item.birthday,
-          specialization: item.specialization,
-          living_region_id_nomi: item.living_region_id_nomi,
-          living_district_id_nomi: item.living_district_id_nomi,
-        };
-      });
-      console.log(newData);
+      const { newData } = await res.json();
 
       setData(newData);
     } catch (error) {

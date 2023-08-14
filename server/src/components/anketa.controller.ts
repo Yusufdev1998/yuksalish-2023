@@ -25,10 +25,22 @@ export const getAnketa = async (req: Request, res: Response) => {
 
     two["limit"] = two["limit"] ? two["limit"] : 20;
     two["skip"] = two["skip"] ? two["skip"] : 20;
-    const data = await anketaModel.find(one, {}, two);
+    let data = await anketaModel.find(one, {}, two);
     const count = await anketaModel.count(one);
+
+    let newData = data?.map((item: any, i: any) => {
+      return {
+        key: i + 1,
+        fio: item.fio,
+        birthday: item.birthday,
+        specialization: item.specialization,
+        living_region_id_nomi: item.living_region_id_nomi,
+        living_district_id_nomi: item.living_district_id_nomi,
+      };
+    });
     res.send({
       data,
+      newData,
       succes: true,
       count,
       limit: data.length,
