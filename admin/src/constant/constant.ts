@@ -1,4 +1,4 @@
-export let url = "";
+export let url = "http://localhost:3000/";
 export let filial_type = ["asosiy", "oddiy"];
 export let spravochnik = "spravochnik";
 export let hr = "hr";

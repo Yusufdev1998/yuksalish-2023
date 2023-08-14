@@ -4,19 +4,16 @@ import { CostumRequest } from "../middleware/auth";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    let { search, name } = req.query;
+    let { sorts, name } = req.query;
     const find: any = {};
     const sort: any = {};
-
     if (name) {
-      find.name = { ["$regax"]: search, $options: "i" };
+      find.nomi = { ["$regex"]: name, $options: "i" };
     }
-    if (search) {
-      sort.name = name;
+    if (sorts) {
+      sort.nomi = sorts;
     }
-
     const data = await lavozimModel.find({ ...find }, {}, { sort: sort });
-
     res.send({
       succes: true,
       data,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import SearchCom from "./SearchCom";
-import { url } from "../constant/constant";
+import { filial_type, url } from "../constant/constant";
 interface DataType {
   name: string;
   key: number;
@@ -10,7 +10,7 @@ interface DataType {
 }
 
 const Fillial: React.FC = () => {
-  const fillial = "fillial";
+  const fillial = "filial";
   const [input, setInput] = useState("");
   const columns: ColumnsType<DataType> = [
     {
@@ -32,9 +32,17 @@ const Fillial: React.FC = () => {
     try {
       const res = await fetch(url + fillial + query);
 
-      const data = await res.json();
+      const { data } = await res.json();
 
-      setData(data);
+      const newData = data?.map((item: any, i: any) => {
+        return {
+          name: item.nomi,
+          key: i + 1,
+          filial_type: filial_type[item.turi],
+        };
+      });
+
+      setData(newData);
     } catch (error) {
       console.log(error);
     }

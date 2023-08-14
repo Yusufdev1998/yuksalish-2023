@@ -84,7 +84,7 @@ const Anketa: React.FC = () => {
   useEffect(() => {
     let query = "?";
     Object.keys(querys).map((quer) => {
-      if (quer) {
+      if (querys[quer]) {
         query += quer + "=" + querys[quer] + "&";
       }
     });
@@ -99,9 +99,26 @@ const Anketa: React.FC = () => {
 
   const fetchUrl = async () => {
     try {
+      console.log(query);
+
       const res = await fetch(url + fillial + query);
-      const data = await res.json();
-      setData(data);
+      console.log(res);
+
+      const { data } = await res.json();
+
+      let newData = data?.map((item: any, i: any) => {
+        return {
+          key: i + 1,
+          fio: item.fio,
+          birthday: item.birthday,
+          specialization: item.specialization,
+          living_region_id_nomi: item.living_region_id_nomi,
+          living_district_id_nomi: item.living_district_id_nomi,
+        };
+      });
+      console.log(newData);
+
+      setData(newData);
     } catch (error) {
       console.log(error);
     }

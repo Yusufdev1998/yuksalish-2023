@@ -27,9 +27,16 @@ const Lavozim: React.FC = () => {
       let query = input ? `?name=${input}` : "";
       const res = await fetch(url + lavozim + query);
 
-      const data = await res.json();
+      const { data } = await res.json();
 
-      setData(data);
+      const newData = data?.map((item: any, i: any) => {
+        return {
+          name: item.nomi,
+          key: i + 1,
+        };
+      });
+
+      setData(newData);
     } catch (error: any) {
       console.log(error.message);
     }

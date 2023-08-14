@@ -22,6 +22,9 @@ export const getAnketa = async (req: Request, res: Response) => {
         one[item] = { $regex: query[item], $options: "i" };
       }
     });
+
+    two["limit"] = two["limit"] ? two["limit"] : 20;
+    two["skip"] = two["skip"] ? two["skip"] : 20;
     const data = await anketaModel.find(one, {}, two);
     const count = await anketaModel.count(one);
     res.send({

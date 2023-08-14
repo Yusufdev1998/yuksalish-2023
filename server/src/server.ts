@@ -7,11 +7,13 @@ import anketaRouter from "./routes/anketa.routes";
 import fillialRouter from "./routes/fillial.routes";
 import lavozimRouter from "./routes/lavozim.routes";
 import { message, text_button, url } from "./constant/mdul-name";
+import cors from "cors";
 const app = express();
 
 dbConnection();
 app.use(express.json({ limit: "30mb" }));
 app.use(cookieParser());
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use("/anketa", anketaRouter);
 app.use("/filial", fillialRouter);
 app.use("/lavozim", lavozimRouter);

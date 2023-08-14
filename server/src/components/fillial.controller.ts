@@ -5,19 +5,18 @@ import filialModel from "../models/fillial.madel";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    let { search, name } = req.query;
+    let { sorts, name } = req.query;
     const find: any = {};
     const sort: any = {};
+    console.log(name);
 
     if (name) {
-      find.name = { ["$regax"]: search, $options: "i" };
+      find.nomi = { ["$regex"]: name, $options: "i" };
     }
-    if (search) {
-      sort.name = name;
+    if (sorts) {
+      sort.nomi = sorts;
     }
-
     const data = await filialModel.find({ ...find }, {}, { sort: sort });
-
     res.send({
       succes: true,
       data,
