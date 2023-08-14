@@ -32,13 +32,13 @@ const Anketa: React.FC = () => {
       dataIndex: "fio",
     },
     {
-      title: <SearchCom title="vakansiya" cb={setBirthday} item={birthday} />,
+      title: <SearchCom title="birthday" cb={setBirthday} item={birthday} />,
       dataIndex: "birthday",
     },
     {
       title: (
         <SearchCom
-          title="Oblast"
+          title="vakansiya"
           cb={setSpecialization}
           item={specialization}
         />
@@ -50,7 +50,7 @@ const Anketa: React.FC = () => {
     {
       title: (
         <SearchCom
-          title="rayon"
+          title="Oblast"
           cb={setLiving_region_id_nomi}
           item={living_region_id_nomi}
         />
@@ -60,16 +60,12 @@ const Anketa: React.FC = () => {
     {
       title: (
         <SearchCom
-          title="filial"
+          title="Rayon"
           cb={setliving_district_id_nomi}
           item={living_district_id_nomi}
         />
       ),
       dataIndex: "living_district_id_nomi",
-    },
-    {
-      title: "data",
-      dataIndex: "birthday",
     },
   ];
   const [data, setData] = useState<DataType[]>([]);
